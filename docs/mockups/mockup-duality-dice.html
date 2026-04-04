@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Duality Dice Roller — Mockup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              hope: { DEFAULT: "#60a5fa", dim: "#1e3a5f" },
+              fear: { DEFAULT: "#f87171", dim: "#5f1e1e" },
+              critical: { DEFAULT: "#facc15", dim: "#5f4a00" },
+            },
+            fontFamily: {
+              display: ["Georgia", "serif"],
+              body: ["system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background: #0f1117;
+      }
+
+      /* Die glow effects */
+      .die-hope {
+        box-shadow: 0 0 18px 2px rgba(96, 165, 250, 0.25);
+      }
+      .die-fear {
+        box-shadow: 0 0 18px 2px rgba(248, 113, 113, 0.25);
+      }
+
+      /* Outcome badge pulse for critical */
+      .badge-critical {
+        animation: pulse-gold 2s ease-in-out infinite;
+      }
+      @keyframes pulse-gold {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(250, 204, 21, 0);
+        }
+        50% {
+          box-shadow: 0 0 12px 4px rgba(250, 204, 21, 0.35);
+        }
+      }
+
+      /* Subtle row stripe */
+      tbody tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.025);
+      }
+    </style>
+  </head>
+  <body
+    class="font-body text-slate-100 min-h-screen flex items-start justify-center p-10"
+  >
+    <div class="w-full max-w-lg flex flex-col items-center gap-8">
+      <!-- Header -->
+      <div class="text-center">
+        <p class="text-xs tracking-[0.25em] uppercase text-slate-500 mb-1">
+          Daggerheart
+        </p>
+        <h1
+          class="font-display text-4xl font-bold tracking-wide text-slate-100"
+        >
+          Duality Dice
+        </h1>
+      </div>
+
+      <!-- Roll Button -->
+      <button
+        class="px-10 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 active:scale-95 text-slate-100 font-semibold text-base tracking-widest uppercase border border-slate-600 transition-all duration-150 cursor-pointer"
+      >
+        Roll the Dice
+      </button>
+
+      <!-- Result Card -->
+      <div
+        class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 flex flex-col items-center gap-6 shadow-xl"
+      >
+        <!-- Dice pair -->
+        <div class="flex gap-10 items-end">
+          <!-- Hope Die -->
+          <div class="flex flex-col items-center gap-2">
+            <span class="text-xs font-bold tracking-[0.2em] uppercase text-hope"
+              >Hope</span
+            >
+            <div
+              class="die-hope w-20 h-20 rounded-xl border-2 border-hope bg-hope/10 flex items-center justify-center text-3xl font-bold text-hope"
+            >
+              9
+            </div>
+          </div>
+
+          <!-- VS divider -->
+          <div class="pb-4 text-slate-600 font-bold text-lg select-none">
+            vs
+          </div>
+
+          <!-- Fear Die -->
+          <div class="flex flex-col items-center gap-2">
+            <span class="text-xs font-bold tracking-[0.2em] uppercase text-fear"
+              >Fear</span
+            >
+            <div
+              class="die-fear w-20 h-20 rounded-xl border-2 border-fear bg-fear/10 flex items-center justify-center text-3xl font-bold text-fear"
+            >
+              5
+            </div>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="text-slate-400 text-sm">
+          Total: <span class="text-slate-200 font-semibold text-base">14</span>
+        </div>
+
+        <!-- Outcome badge — Hope -->
+        <div
+          class="px-6 py-2 rounded-full bg-hope/15 border border-hope/40 text-hope font-bold tracking-wider text-lg"
+        >
+          With Hope
+        </div>
+      </div>
+
+      <!-- Critical example (second card, separate state) -->
+      <div
+        class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 flex flex-col items-center gap-6 shadow-xl opacity-70"
+      >
+        <p class="text-[11px] tracking-widest uppercase text-slate-600">
+          Critical example
+        </p>
+
+        <div class="flex gap-10 items-end">
+          <div class="flex flex-col items-center gap-2">
+            <span class="text-xs font-bold tracking-[0.2em] uppercase text-hope"
+              >Hope</span
+            >
+            <div
+              class="die-hope w-20 h-20 rounded-xl border-2 border-hope bg-hope/10 flex items-center justify-center text-3xl font-bold text-hope"
+            >
+              7
+            </div>
+          </div>
+          <div class="pb-4 text-slate-600 font-bold text-lg select-none">
+            vs
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <span class="text-xs font-bold tracking-[0.2em] uppercase text-fear"
+              >Fear</span
+            >
+            <div
+              class="die-fear w-20 h-20 rounded-xl border-2 border-fear bg-fear/10 flex items-center justify-center text-3xl font-bold text-fear"
+            >
+              7
+            </div>
+          </div>
+        </div>
+
+        <div class="text-slate-400 text-sm">
+          Total: <span class="text-slate-200 font-semibold text-base">14</span>
+        </div>
+
+        <div
+          class="badge-critical px-6 py-2 rounded-full bg-critical/15 border border-critical/40 text-critical font-bold tracking-wider text-lg"
+        >
+          Critical Success!
+        </div>
+      </div>
+
+      <!-- Roll History -->
+      <div class="w-full">
+        <h2
+          class="text-xs font-bold tracking-[0.2em] uppercase text-slate-500 text-center mb-4"
+        >
+          Roll History
+        </h2>
+        <div
+          class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden"
+        >
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-800">
+                <th class="py-3 px-4 text-left text-slate-500 font-semibold">
+                  #
+                </th>
+                <th class="py-3 px-4 text-center text-hope font-semibold">
+                  Hope
+                </th>
+                <th class="py-3 px-4 text-center text-fear font-semibold">
+                  Fear
+                </th>
+                <th class="py-3 px-4 text-center text-slate-500 font-semibold">
+                  Total
+                </th>
+                <th class="py-3 px-4 text-right text-slate-500 font-semibold">
+                  Outcome
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              <tr>
+                <td class="py-3 px-4 text-slate-400">3</td>
+                <td class="py-3 px-4 text-center font-semibold text-hope">9</td>
+                <td class="py-3 px-4 text-center font-semibold text-fear">5</td>
+                <td class="py-3 px-4 text-center text-slate-300">14</td>
+                <td class="py-3 px-4 text-right">
+                  <span
+                    class="px-2 py-0.5 rounded-full text-xs font-semibold bg-hope/15 text-hope border border-hope/30"
+                    >With Hope</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-slate-400">2</td>
+                <td class="py-3 px-4 text-center font-semibold text-hope">7</td>
+                <td class="py-3 px-4 text-center font-semibold text-fear">7</td>
+                <td class="py-3 px-4 text-center text-slate-300">14</td>
+                <td class="py-3 px-4 text-right">
+                  <span
+                    class="px-2 py-0.5 rounded-full text-xs font-semibold bg-critical/15 text-critical border border-critical/30"
+                    >Critical!</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-slate-400">1</td>
+                <td class="py-3 px-4 text-center font-semibold text-hope">3</td>
+                <td class="py-3 px-4 text-center font-semibold text-fear">
+                  11
+                </td>
+                <td class="py-3 px-4 text-center text-slate-300">14</td>
+                <td class="py-3 px-4 text-right">
+                  <span
+                    class="px-2 py-0.5 rounded-full text-xs font-semibold bg-fear/15 text-fear border border-fear/30"
+                    >With Fear</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

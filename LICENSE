@@ -1,0 +1,37 @@
+# Licensing
+
+This repository contains materials under multiple licenses. Read carefully to
+understand what belongs to whom.
+
+## Daggerheart SRD Content (Darrington Press)
+
+The files in `daggerheart-srd/` are reproduced from the **Daggerheart System
+Reference Document 1.0**, © Critical Role, LLC., under the terms of the
+**Darrington Press Community Gaming License (DPCGL)**.
+
+> This product includes materials from the Daggerheart System Reference
+> Document 1.0, © Critical Role, LLC. under the terms of the Darrington Press
+> Community Gaming (DPCGL) License. More information can be found at
+> https://www.daggerheart.com/.
+
+The SRD content remains the exclusive property of Critical Role, LLC.
+
+The full DPCGL is available at: https://darringtonpress.com/license/
+
+The files in `daggerheart-srd/` are sourced from the independent reformatting
+project seansbox/daggerheart-srd (© Sean Box), used here as a git submodule.
+That project's own attribution notice is at:
+https://github.com/seansbox/daggerheart-srd/blob/c84b20b9b7c237d832eda7e64df46440eb983ed1/LICENSE
+
+## Trademarks
+
+**Daggerheart™** and all related marks, logos, and characters are trademarks
+of Critical Role, LLC. and are used with permission under the DPCGL.
+
+This project is **not** affiliated with, endorsed by, or sponsored by Critical
+Role, LLC. or Darrington Press.
+
+## Original Source Code
+
+The original source code in this repository, everything outside of
+`daggerheart-srd/`, is © Nick Vogt. All rights reserved.
