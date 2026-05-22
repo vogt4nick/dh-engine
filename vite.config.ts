@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  base: "/dh-engine/",
   plugins: [tailwindcss(), react()],
   test: {
     include: ["tests/unit/**/*.test.ts"],

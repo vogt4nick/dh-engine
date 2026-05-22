@@ -33,7 +33,10 @@ export default function Credits() {
         </p>
         <p>Application source code © Nick Vogt. All rights reserved.</p>
       </div>
-      <a href="/" className="text-hope hover:underline text-sm">
+      <a
+        href={import.meta.env.BASE_URL}
+        className="text-hope hover:underline text-sm"
+      >
         ← Back
       </a>
     </div>

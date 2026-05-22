@@ -7,7 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: "html",
   use: {
-    baseURL: "http://localhost:5173",
+    baseURL: "http://localhost:5173/dh-engine/",
     trace: "on-first-retry",
   },
   projects: [
@@ -20,8 +20,8 @@ export default defineConfig({
     { name: "Mobile Safari", use: { ...devices["iPhone 12 landscape"] } },
   ],
   webServer: {
-    command: "npm run dev",
-    url: "http://localhost:5173",
+    command: "pnpm run dev",
+    url: "http://localhost:5173/dh-engine/",
     reuseExistingServer: !process.env.CI,
   },
 });

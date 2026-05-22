@@ -3,8 +3,10 @@ import Credits from "./Credits";
 import DualityDiceRoller from "./DualityDiceRoller";
 import Layout from "./Layout";
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 export default function App() {
-  const path = globalThis.location.pathname;
+  const path = globalThis.location.pathname.slice(base.length) || "/";
 
   if (path === "/credits") {
     return (
@@ -37,24 +39,30 @@ export default function App() {
           DH Engine
         </h1>
         <img
-          src="/daggerheart-compatible.svg"
+          src={`${base}/daggerheart-compatible.svg`}
           alt="Daggerheart Compatible"
           className="w-64"
         />
         <ul className="flex flex-col items-center gap-3 text-base">
           <li>
-            <a href="/ActionRoller" className="text-hope hover:underline">
+            <a
+              href={`${base}/ActionRoller`}
+              className="text-hope hover:underline"
+            >
               Action Roll
             </a>
           </li>
           <li>
-            <a href="/DualityDiceRoller" className="text-hope hover:underline">
+            <a
+              href={`${base}/DualityDiceRoller`}
+              className="text-hope hover:underline"
+            >
               Roll Duality Dice
             </a>
           </li>
         </ul>
         <a
-          href="/credits"
+          href={`${base}/credits`}
           className="text-xs text-slate-500 hover:underline mt-auto"
         >
           Credits
