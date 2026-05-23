@@ -7,18 +7,12 @@ import {
 } from "../engine";
 import Button from "./Button";
 import Die from "./Die";
+import OutcomeBadge from "./OutcomeBadge";
 
 const OUTCOME_LABEL: Record<DualityOutcome, string> = {
   critical: "Critical Success!",
   hope: "With Hope",
   fear: "With Fear",
-};
-
-const OUTCOME_BADGE: Record<DualityOutcome, string> = {
-  critical:
-    "bg-critical/15 border-critical/40 text-critical animate-[pulse-gold_2s_ease-in-out_infinite]",
-  hope: "bg-hope/15 border-hope/40 text-hope",
-  fear: "bg-fear/15 border-fear/40 text-fear",
 };
 
 export default function DualityDiceRoller() {
@@ -29,7 +23,7 @@ export default function DualityDiceRoller() {
   }
 
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] h-[calc(100vh-2.5rem)] px-6 py-12 bg-[#0f1117] text-slate-100">
+    <div className="grid grid-rows-[auto_1fr_auto] h-full px-6 py-12 bg-[#0f1117] text-slate-100">
       <h1 className="font-display text-4xl font-bold tracking-wide text-slate-100 text-center">
         Duality Dice
       </h1>
@@ -64,11 +58,10 @@ function RollResult({ roll }: { roll: DualityRoll }) {
         </span>
       </p>
 
-      <div
-        className={`px-6 py-2 rounded-full border font-bold tracking-wider text-lg ${OUTCOME_BADGE[roll.outcome]}`}
-      >
-        {OUTCOME_LABEL[roll.outcome]}
-      </div>
+      <OutcomeBadge
+        variant={roll.outcome}
+        label={OUTCOME_LABEL[roll.outcome]}
+      />
     </div>
   );
 }
@@ -116,13 +109,15 @@ function RollHistory({ rolls }: { rolls: DualityRoll[] }) {
                   {r.total}
                 </td>
                 <td className="py-3 px-4 text-right">
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-xs font-semibold border whitespace-nowrap ${OUTCOME_BADGE[r.outcome]}`}
-                  >
-                    {r.outcome === "critical"
-                      ? "Critical!"
-                      : OUTCOME_LABEL[r.outcome]}
-                  </span>
+                  <OutcomeBadge
+                    variant={r.outcome}
+                    label={
+                      r.outcome === "critical"
+                        ? "Critical!"
+                        : OUTCOME_LABEL[r.outcome]
+                    }
+                    size="sm"
+                  />
                 </td>
               </tr>
             ))}

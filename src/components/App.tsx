@@ -7,6 +7,18 @@ import Layout from "./Layout";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
+const ROUTES = [
+  { path: "/ActionRoller", component: ActionRoller, label: "Action Roll" },
+  {
+    path: "/DualityDiceRoller",
+    component: DualityDiceRoller,
+    label: "Roll Duality Dice",
+  },
+  { path: "/credits", component: Credits, label: undefined },
+] as const;
+
+const NAV_ROUTES = ROUTES.filter((r) => r.label !== undefined);
+
 export default function App() {
   const [hash, setHash] = useState(globalThis.location.hash);
 
@@ -21,27 +33,13 @@ export default function App() {
   }, []);
 
   const path = hash.slice(1) || "/";
+  const match = ROUTES.find((r) => r.path === path);
 
-  if (path === "/credits") {
+  if (match) {
+    const Page = match.component;
     return (
       <Layout>
-        <Credits />
-      </Layout>
-    );
-  }
-
-  if (path === "/ActionRoller") {
-    return (
-      <Layout>
-        <ActionRoller />
-      </Layout>
-    );
-  }
-
-  if (path === "/DualityDiceRoller") {
-    return (
-      <Layout>
-        <DualityDiceRoller />
+        <Page />
       </Layout>
     );
   }
@@ -58,16 +56,13 @@ export default function App() {
           className="w-64"
         />
         <ul className="flex flex-col items-center gap-3 text-base">
-          <li>
-            <a href="#/ActionRoller" className="text-hope hover:underline">
-              Action Roll
-            </a>
-          </li>
-          <li>
-            <a href="#/DualityDiceRoller" className="text-hope hover:underline">
-              Roll Duality Dice
-            </a>
-          </li>
+          {NAV_ROUTES.map((r) => (
+            <li key={r.path}>
+              <a href={`#${r.path}`} className="text-hope hover:underline">
+                {r.label}
+              </a>
+            </li>
+          ))}
         </ul>
         <a
           href="#/credits"

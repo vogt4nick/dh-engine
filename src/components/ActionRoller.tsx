@@ -7,6 +7,7 @@ import {
 } from "../engine";
 import Button from "./Button";
 import Die from "./Die";
+import OutcomeBadge from "./OutcomeBadge";
 
 function FormField({
   label,
@@ -29,6 +30,23 @@ const OUTCOME_LABEL: Record<ActionRollOutcome, string> = {
   "success-fear": "✓ Success  💀 Fear",
   "failure-hope": "✗ Failure  🪽 Hope",
   "failure-fear": "✗ Failure  💀 Fear",
+};
+
+const OUTCOME_VARIANT: Record<ActionRollOutcome, "critical" | "hope" | "fear"> =
+  {
+    critical: "critical",
+    "success-hope": "hope",
+    "success-fear": "fear",
+    "failure-hope": "hope",
+    "failure-fear": "fear",
+  };
+
+const RESULT_CARD: Record<ActionRollOutcome, string> = {
+  critical: "bg-critical/[0.08] border-critical/20",
+  "success-hope": "bg-green-500/[0.08] border-green-500/20",
+  "success-fear": "bg-green-500/[0.08] border-green-500/20",
+  "failure-hope": "bg-fear/[0.08] border-fear/20",
+  "failure-fear": "bg-fear/[0.08] border-fear/20",
 };
 
 export default function ActionRoller() {
@@ -87,13 +105,10 @@ export default function ActionRoller() {
 function RollResult({ roll }: { roll: ActionRoll }) {
   const withHope =
     roll.outcome === "success-hope" || roll.outcome === "failure-hope";
-  const cardBorder = roll.isSuccess
-    ? "bg-green-500/[0.08] border-green-500/20"
-    : "bg-fear/[0.08] border-fear/20";
 
   return (
     <div
-      className={`w-full max-w-sm border rounded-2xl p-8 flex flex-col items-center gap-6 shadow-xl ${cardBorder}`}
+      className={`w-full max-w-sm border rounded-2xl p-8 flex flex-col items-center gap-6 shadow-xl ${RESULT_CARD[roll.outcome]}`}
     >
       <div className="flex gap-10 items-end">
         <Die label="Hope" value={roll.hope} variant="hope" />
@@ -176,41 +191,32 @@ function RollHistory({ history }: { history: ActionRoll[] }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800/60">
-            {history.map((roll, index) => {
-              let outcomeBadge = "bg-fear/15 border-fear/40 text-fear";
-              if (roll.outcome === "critical") {
-                outcomeBadge =
-                  "bg-critical/15 border-critical/40 text-critical";
-              } else if (roll.isSuccess) {
-                outcomeBadge = "bg-hope/15 border-hope/40 text-hope";
-              }
-              return (
-                <tr key={index} className="even:bg-white/[0.025]">
-                  <td className="py-3 px-4 text-slate-400">
-                    {history.length - index}
-                  </td>
-                  <td className="py-3 px-4 text-center font-semibold text-hope">
-                    {roll.hope}
-                  </td>
-                  <td className="py-3 px-4 text-center font-semibold text-fear">
-                    {roll.fear}
-                  </td>
-                  <td className="py-3 px-4 text-center text-slate-300">
-                    {roll.total}
-                  </td>
-                  <td className="py-3 px-4 text-center text-slate-500">
-                    {roll.difficulty}
-                  </td>
-                  <td className="py-3 px-4 text-right">
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${outcomeBadge}`}
-                    >
-                      {OUTCOME_LABEL[roll.outcome]}
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
+            {history.map((roll, index) => (
+              <tr key={index} className="even:bg-white/[0.025]">
+                <td className="py-3 px-4 text-slate-400">
+                  {history.length - index}
+                </td>
+                <td className="py-3 px-4 text-center font-semibold text-hope">
+                  {roll.hope}
+                </td>
+                <td className="py-3 px-4 text-center font-semibold text-fear">
+                  {roll.fear}
+                </td>
+                <td className="py-3 px-4 text-center text-slate-300">
+                  {roll.total}
+                </td>
+                <td className="py-3 px-4 text-center text-slate-500">
+                  {roll.difficulty}
+                </td>
+                <td className="py-3 px-4 text-right">
+                  <OutcomeBadge
+                    variant={OUTCOME_VARIANT[roll.outcome]}
+                    label={OUTCOME_LABEL[roll.outcome]}
+                    size="sm"
+                  />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
