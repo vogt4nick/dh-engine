@@ -113,7 +113,7 @@ function RollHistory({ rolls }: { rolls: DualityRoll[] }) {
                 </td>
                 <td className="py-3 px-4 text-right">
                   <span
-                    className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${OUTCOME_BADGE[r.outcome]}`}
+                    className={`px-2 py-0.5 rounded-full text-xs font-semibold border whitespace-nowrap ${OUTCOME_BADGE[r.outcome]}`}
                   >
                     {r.outcome === "critical"
                       ? "Critical!"
