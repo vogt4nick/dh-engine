@@ -1,4 +1,5 @@
 export default function Credits() {
+  const baseUrl = import.meta.env.BASE_URL;
   return (
     <div className="flex flex-col items-center gap-8 px-6 py-12 min-h-screen text-slate-100">
       <h1 className="font-display text-4xl font-bold tracking-wide text-slate-100">
@@ -33,10 +34,7 @@ export default function Credits() {
         </p>
         <p>Application source code © Nick Vogt. All rights reserved.</p>
       </div>
-      <a
-        href={import.meta.env.BASE_URL}
-        className="text-hope hover:underline text-sm"
-      >
+      <a href={baseUrl} className="text-hope hover:underline text-sm">
         ← Back
       </a>
     </div>
