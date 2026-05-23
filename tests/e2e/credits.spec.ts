@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("/credits", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("credits");
+    await page.goto("#/credits");
   });
 
   test("displays the required DPCGL attribution statement", async ({
@@ -43,16 +43,16 @@ test.describe("/credits", () => {
   test("is linked from the home page", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("link", { name: "Credits" }).click();
-    await expect(page).toHaveURL("credits");
+    await expect(page).toHaveURL(/.+#\/credits$/);
   });
 });
 
 test.describe("footer", () => {
   for (const [label, path] of [
     ["/", "/"],
-    ["/credits", "credits"],
-    ["/ActionRoller", "ActionRoller"],
-    ["/DualityDiceRoller", "DualityDiceRoller"],
+    ["/credits", "#/credits"],
+    ["/ActionRoller", "#/ActionRoller"],
+    ["/DualityDiceRoller", "#/DualityDiceRoller"],
   ]) {
     test(`displays copyright footer on ${label}`, async ({ page }) => {
       await page.goto(path);

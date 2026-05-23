@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import ActionRoller from "./ActionRoller";
 import Credits from "./Credits";
 import DualityDiceRoller from "./DualityDiceRoller";
@@ -6,7 +8,19 @@ import Layout from "./Layout";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 export default function App() {
-  const path = globalThis.location.pathname.slice(base.length) || "/";
+  const [hash, setHash] = useState(globalThis.location.hash);
+
+  useEffect(() => {
+    const onHashChange = () => {
+      setHash(globalThis.location.hash);
+    };
+    globalThis.addEventListener("hashchange", onHashChange);
+    return () => {
+      globalThis.removeEventListener("hashchange", onHashChange);
+    };
+  }, []);
+
+  const path = hash.slice(1) || "/";
 
   if (path === "/credits") {
     return (
@@ -45,24 +59,18 @@ export default function App() {
         />
         <ul className="flex flex-col items-center gap-3 text-base">
           <li>
-            <a
-              href={`${base}/ActionRoller`}
-              className="text-hope hover:underline"
-            >
+            <a href="#/ActionRoller" className="text-hope hover:underline">
               Action Roll
             </a>
           </li>
           <li>
-            <a
-              href={`${base}/DualityDiceRoller`}
-              className="text-hope hover:underline"
-            >
+            <a href="#/DualityDiceRoller" className="text-hope hover:underline">
               Roll Duality Dice
             </a>
           </li>
         </ul>
         <a
-          href={`${base}/credits`}
+          href="#/credits"
           className="text-xs text-slate-500 hover:underline mt-auto"
         >
           Credits

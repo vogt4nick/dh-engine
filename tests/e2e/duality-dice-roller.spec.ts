@@ -9,7 +9,7 @@ const FEAR_RANDOM_SEQUENCE = [0.1, 0.9];
 
 test.describe("/DualityDiceRoller", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("DualityDiceRoller");
+    await page.goto("#/DualityDiceRoller");
   });
 
   test("renders the Duality Dice heading", async ({ page }) => {
@@ -206,7 +206,7 @@ test("home page links to /DualityDiceRoller", async ({ page }) => {
     page.getByRole("link", { name: "Roll Duality Dice" }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Roll Duality Dice" }).click();
-  await expect(page).toHaveURL("DualityDiceRoller");
+  await expect(page).toHaveURL(/.+#\/DualityDiceRoller$/);
   await expect(
     page.getByRole("heading", { name: "Duality Dice" }),
   ).toBeVisible();
