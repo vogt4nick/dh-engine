@@ -47,19 +47,21 @@ export default function ActionRollResult({ roll }: { roll: ActionRoll }) {
 
       {roll.outcome === "critical" ? (
         <div className="text-2xl font-bold tracking-wide text-critical animate-[pulse-gold_2s_ease-in-out_infinite]">
-          ⚡ Critical Success!
+          <span aria-hidden="true">⚡ </span>Critical Success!
         </div>
       ) : (
         <div className="flex flex-col items-center gap-1">
           <div
             className={`text-2xl font-bold tracking-wide ${roll.isSuccess ? "text-slate-200" : "text-fear"}`}
           >
-            {roll.isSuccess ? "✓ Success" : "✗ Failure"}
+            <span aria-hidden="true">{roll.isSuccess ? "✓ " : "✗ "}</span>
+            {roll.isSuccess ? "Success" : "Failure"}
           </div>
           <div
             className={`text-lg font-bold tracking-wide ${withHope ? "text-hope" : "text-fear"}`}
           >
-            {withHope ? "🪽 Hope" : "💀 Fear"}
+            <span aria-hidden="true">{withHope ? "🪽 " : "💀 "}</span>
+            {withHope ? "Hope" : "Fear"}
           </div>
         </div>
       )}

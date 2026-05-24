@@ -2,11 +2,11 @@ import type { ActionRoll, ActionRollOutcome } from "../engine";
 import OutcomeBadge from "./OutcomeBadge";
 
 const OUTCOME_LABEL: Record<ActionRollOutcome, string> = {
-  critical: "⚡ Critical Success!",
-  "success-hope": "✓ Success  🪽 Hope",
-  "success-fear": "✓ Success  💀 Fear",
-  "failure-hope": "✗ Failure  🪽 Hope",
-  "failure-fear": "✗ Failure  💀 Fear",
+  critical: "Critical Success!",
+  "success-hope": "Success with Hope",
+  "success-fear": "Success with Fear",
+  "failure-hope": "Failure with Hope",
+  "failure-fear": "Failure with Fear",
 };
 
 const OUTCOME_VARIANT: Record<ActionRollOutcome, "critical" | "hope" | "fear"> =
