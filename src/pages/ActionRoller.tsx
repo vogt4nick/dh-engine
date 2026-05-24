@@ -1,13 +1,13 @@
 import { useState } from "react";
 
+import Button from "../components/Button";
+import Die from "../components/Die";
+import OutcomeBadge from "../components/OutcomeBadge";
 import {
   type ActionRoll,
   type ActionRollOutcome,
   rollActionRoll,
 } from "../engine";
-import Button from "./Button";
-import Die from "./Die";
-import OutcomeBadge from "./OutcomeBadge";
 
 function FormField({
   label,

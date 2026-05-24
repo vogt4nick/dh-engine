@@ -1,13 +1,13 @@
 import { useState } from "react";
 
+import Button from "../components/Button";
+import Die from "../components/Die";
+import OutcomeBadge from "../components/OutcomeBadge";
 import {
   type DualityOutcome,
   type DualityRoll,
   rollDualityDice,
 } from "../engine";
-import Button from "./Button";
-import Die from "./Die";
-import OutcomeBadge from "./OutcomeBadge";
 
 const OUTCOME_LABEL: Record<DualityOutcome, string> = {
   critical: "Critical Success!",
