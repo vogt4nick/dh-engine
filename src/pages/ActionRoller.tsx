@@ -1,53 +1,10 @@
 import { useState } from "react";
 
+import ActionRollHistory from "../components/ActionRollHistory";
+import ActionRollResult from "../components/ActionRollResult";
 import Button from "../components/Button";
-import Die from "../components/Die";
-import OutcomeBadge from "../components/OutcomeBadge";
-import {
-  type ActionRoll,
-  type ActionRollOutcome,
-  rollActionRoll,
-} from "../engine";
-
-function FormField({
-  label,
-  ...inputProperties
-}: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <label className="flex flex-col gap-1.5 text-xs font-bold tracking-[0.1em] uppercase text-slate-500">
-      {label}
-      <input
-        className="px-3 py-2.5 text-base bg-slate-800 text-slate-100 border border-slate-700 rounded-lg w-24 focus:outline-none focus:border-slate-500"
-        {...inputProperties}
-      />
-    </label>
-  );
-}
-
-const OUTCOME_LABEL: Record<ActionRollOutcome, string> = {
-  critical: "⚡ Critical Success!",
-  "success-hope": "✓ Success  🪽 Hope",
-  "success-fear": "✓ Success  💀 Fear",
-  "failure-hope": "✗ Failure  🪽 Hope",
-  "failure-fear": "✗ Failure  💀 Fear",
-};
-
-const OUTCOME_VARIANT: Record<ActionRollOutcome, "critical" | "hope" | "fear"> =
-  {
-    critical: "critical",
-    "success-hope": "hope",
-    "success-fear": "fear",
-    "failure-hope": "hope",
-    "failure-fear": "fear",
-  };
-
-const RESULT_CARD: Record<ActionRollOutcome, string> = {
-  critical: "bg-critical/[0.08] border-critical/20",
-  "success-hope": "bg-green-500/[0.08] border-green-500/20",
-  "success-fear": "bg-green-500/[0.08] border-green-500/20",
-  "failure-hope": "bg-fear/[0.08] border-fear/20",
-  "failure-fear": "bg-fear/[0.08] border-fear/20",
-};
+import FormField from "../components/FormField";
+import { type ActionRoll, rollActionRoll } from "../engine";
 
 export default function ActionRoller() {
   const [traitModifier, setTraitModifier] = useState(0);
@@ -96,130 +53,8 @@ export default function ActionRoller() {
 
       <Button onClick={handleRoll}>Roll</Button>
 
-      {history.length > 0 && <RollResult roll={history[0]} />}
-      {history.length > 0 && <RollHistory history={history} />}
-    </div>
-  );
-}
-
-function RollResult({ roll }: { roll: ActionRoll }) {
-  const withHope =
-    roll.outcome === "success-hope" || roll.outcome === "failure-hope";
-
-  return (
-    <div
-      className={`w-full max-w-sm border rounded-2xl p-8 flex flex-col items-center gap-6 shadow-xl ${RESULT_CARD[roll.outcome]}`}
-    >
-      <div className="flex gap-10 items-end">
-        <Die label="Hope" value={roll.hope} variant="hope" />
-        <span className="pb-4 text-slate-600 font-bold text-lg select-none">
-          vs
-        </span>
-        <Die label="Fear" value={roll.fear} variant="fear" />
-      </div>
-
-      <div className="flex gap-2 items-center text-base text-slate-400 flex-wrap justify-center">
-        <span>
-          {roll.hope} + {roll.fear}
-        </span>
-        {roll.traitModifier !== 0 && (
-          <span>
-            {roll.traitModifier > 0 ? "+" : ""}
-            {roll.traitModifier}
-          </span>
-        )}
-        {roll.bonus !== 0 && (
-          <span>
-            {roll.bonus > 0 ? "+" : ""}
-            {roll.bonus} (bonus)
-          </span>
-        )}
-        <span className="text-slate-200">= {roll.total}</span>
-        <span className="text-slate-500">vs {roll.difficulty}</span>
-      </div>
-
-      {roll.outcome === "critical" ? (
-        <div className="text-2xl font-bold tracking-wide text-critical animate-[pulse-gold_2s_ease-in-out_infinite]">
-          ⚡ Critical Success!
-        </div>
-      ) : (
-        <div className="flex flex-col items-center gap-1">
-          <div
-            className={`text-2xl font-bold tracking-wide ${roll.isSuccess ? "text-slate-200" : "text-fear"}`}
-          >
-            {roll.isSuccess ? "✓ Success" : "✗ Failure"}
-          </div>
-          <div
-            className={`text-lg font-bold tracking-wide ${withHope ? "text-hope" : "text-fear"}`}
-          >
-            {withHope ? "🪽 Hope" : "💀 Fear"}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function RollHistory({ history }: { history: ActionRoll[] }) {
-  return (
-    <div className="w-full max-w-2xl">
-      <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-slate-500 text-center mb-4">
-        Roll History
-      </h2>
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-slate-800">
-              <th className="py-3 px-4 text-left text-slate-500 font-semibold">
-                #
-              </th>
-              <th className="py-3 px-4 text-center text-hope font-semibold">
-                Hope
-              </th>
-              <th className="py-3 px-4 text-center text-fear font-semibold">
-                Fear
-              </th>
-              <th className="py-3 px-4 text-center text-slate-500 font-semibold">
-                Total
-              </th>
-              <th className="py-3 px-4 text-center text-slate-500 font-semibold">
-                DC
-              </th>
-              <th className="py-3 px-4 text-right text-slate-500 font-semibold">
-                Outcome
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-800/60">
-            {history.map((roll, index) => (
-              <tr key={index} className="even:bg-white/[0.025]">
-                <td className="py-3 px-4 text-slate-400">
-                  {history.length - index}
-                </td>
-                <td className="py-3 px-4 text-center font-semibold text-hope">
-                  {roll.hope}
-                </td>
-                <td className="py-3 px-4 text-center font-semibold text-fear">
-                  {roll.fear}
-                </td>
-                <td className="py-3 px-4 text-center text-slate-300">
-                  {roll.total}
-                </td>
-                <td className="py-3 px-4 text-center text-slate-500">
-                  {roll.difficulty}
-                </td>
-                <td className="py-3 px-4 text-right">
-                  <OutcomeBadge
-                    variant={OUTCOME_VARIANT[roll.outcome]}
-                    label={OUTCOME_LABEL[roll.outcome]}
-                    size="sm"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {history.length > 0 && <ActionRollResult roll={history[0]} />}
+      {history.length > 0 && <ActionRollHistory history={history} />}
     </div>
   );
 }

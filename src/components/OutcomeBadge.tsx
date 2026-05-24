@@ -1,4 +1,4 @@
-type OutcomeVariant = "critical" | "hope" | "fear";
+import type { OutcomeVariant } from "../types";
 
 const BADGE_CLASSES: Record<OutcomeVariant, string> = {
   critical:
