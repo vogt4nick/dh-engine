@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const NAV_ROUTES = [
-  { path: "/ActionRoller", label: "Action Roll" },
   { path: "/DualityDiceRoller", label: "Roll Duality Dice" },
 ] as const;
 
