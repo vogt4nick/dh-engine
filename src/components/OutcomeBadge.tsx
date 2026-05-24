@@ -1,6 +1,6 @@
-import type { OutcomeVariant } from "../types";
+import type { DualityOutcome } from "../engine";
 
-const BADGE_CLASSES: Record<OutcomeVariant, string> = {
+const BADGE_CLASSES: Record<DualityOutcome, string> = {
   critical:
     "bg-critical/15 border-critical/40 text-critical animate-[pulse-gold_2s_ease-in-out_infinite]",
   hope: "bg-hope/15 border-hope/40 text-hope",
@@ -17,7 +17,7 @@ export default function OutcomeBadge({
   label,
   size = "md",
 }: {
-  variant: OutcomeVariant;
+  variant: DualityOutcome;
   label: string;
   size?: "sm" | "md";
 }) {
