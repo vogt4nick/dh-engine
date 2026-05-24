@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --max-warnings=0",
-    "format": "prettier --write .",
+    "format": "prettier --write --log-level warn .",
     "format:check": "prettier --check .",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
