@@ -3,6 +3,7 @@ import { parseDice, rollDice } from "./dice-expression";
 export type DualityOutcome = "critical" | "hope" | "fear";
 
 export interface DualityRoll {
+  id: string;
   hope: number;
   fear: number;
   total: number;
@@ -30,6 +31,7 @@ export function rollDualityDice(
     outcome = withHope ? "hope" : "fear";
   }
   return {
+    id: crypto.randomUUID(),
     hope,
     fear,
     total: hope + fear,

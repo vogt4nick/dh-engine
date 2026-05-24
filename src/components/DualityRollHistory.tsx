@@ -40,7 +40,7 @@ export default function DualityRollHistory({
           </thead>
           <tbody className="divide-y divide-slate-800/60">
             {rolls.map((r, index) => (
-              <tr key={index} className="even:bg-white/[0.025]">
+              <tr key={r.id} className="even:bg-white/[0.025]">
                 <td className="py-3 px-4 text-slate-400">
                   {rolls.length - index}
                 </td>

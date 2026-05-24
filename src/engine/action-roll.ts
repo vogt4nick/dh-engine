@@ -14,6 +14,7 @@ export interface ActionRollInput {
 }
 
 export interface ActionRoll {
+  id: string;
   hope: number;
   fear: number;
   traitModifier: number;
@@ -48,6 +49,7 @@ export function rollActionRoll(
   }
 
   return {
+    id: crypto.randomUUID(),
     hope: duality.hope,
     fear: duality.fear,
     traitModifier,

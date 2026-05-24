@@ -54,7 +54,7 @@ export default function ActionRollHistory({
           </thead>
           <tbody className="divide-y divide-slate-800/60">
             {history.map((roll, index) => (
-              <tr key={index} className="even:bg-white/[0.025]">
+              <tr key={roll.id} className="even:bg-white/[0.025]">
                 <td className="py-3 px-4 text-slate-400">
                   {history.length - index}
                 </td>
